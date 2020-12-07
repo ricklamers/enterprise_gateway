@@ -25,6 +25,15 @@ launch_R_kernel() {
 	{ set +x; } 2>/dev/null
 }
 
+launch_julia_kernel() {
+    # Launch the Julia kernel launcher - which embeds the IJulia kernel and listens for interrupts
+    # and shutdown requests from Enterprise Gateway.
+
+	set -x
+	julia ${KERNEL_LAUNCHERS_DIR}/julia/scripts/launch_juliakernel.jl --RemoteProcessProxy.kernel-id ${KERNEL_ID} --RemoteProcessProxy.response-address ${EG_RESPONSE_ADDRESS}
+	{ set +x; } 2>/dev/null
+}
+
 launch_scala_kernel() {
     # Launch the scala kernel launcher - which embeds the Apache Toree kernel and listens for interrupts
     # and shutdown requests from Enterprise Gateway.  This kernel is currenly always launched using
@@ -83,6 +92,9 @@ then
 elif [[ "${KERNEL_LANGUAGE,,}" == "scala" ]]
 then
     launch_scala_kernel
+elif [[ "${KERNEL_LANGUAGE,,}" == "julia" ]]
+then
+    launch_julia_kernel
 elif [[ "${KERNEL_LANGUAGE,,}" == "r" ]]
 then
     launch_R_kernel

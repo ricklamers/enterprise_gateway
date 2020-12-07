@@ -1,0 +1,22 @@
+{
+  "language": "julia",
+  "display_name": "Julia on Docker",
+  "metadata": {
+    "process_proxy": {
+      "class_name": "enterprise_gateway.services.processproxies.docker_swarm.DockerProcessProxy",
+      "config": {
+        "image_name": "elyra/kernel-julia:VERSION"
+      }
+    }
+  },
+  "env": {
+  },
+  "argv": [
+    "python",
+    "/usr/local/share/jupyter/kernels/julia_docker/scripts/launch_docker.py",
+    "--RemoteProcessProxy.kernel-id",
+    "{kernel_id}",
+    "--RemoteProcessProxy.response-address",
+    "{response_address}"
+  ]
+}
